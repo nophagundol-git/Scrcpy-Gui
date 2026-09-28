@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrcpy Control Center</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="drag-region"></div>
+  <div class="app-container">
+    <header>
+      <h1>Scrcpy Center</h1>
+      <p>Android Mirroring Control</p>
+    </header>
+    
+    <main>
+      <div class="grid-layout">
+        <div class="card">
+        <h2>Connection & Video</h2>
+        
+        <div class="form-group">
+          <label for="deviceSelect">Select Device</label>
+          <div style="display: flex; gap: 10px;">
+            <select id="deviceSelect" style="flex: 1;">
+              <option value="">Auto-detect / Any</option>
+            </select>
+            <button id="refreshDevicesBtn" title="Refresh Devices" type="button" style="padding: 10px 15px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; transition: 0.2s;">🔄</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="wirelessIp">Wireless IP Address (Optional)</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="wirelessIp" placeholder="e.g. 192.168.1.15" style="flex: 1;">
+            <button id="autoWirelessBtn" type="button" style="padding: 10px 15px; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 600; transition: 0.2s;">Auto Setup</button>
+          </div>
+          <div id="wirelessStatus" style="font-size: 0.85rem; margin-top: 8px; color: #4ade80; display: none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="maxSize">Max Size (Resolution)</label>
+          <select id="maxSize">
+            <option value="">Original</option>
+            <option value="2560">2K (2560x1440)</option>
+            <option value="1920">1080p (1920x1080)</option>
+            <option value="1280">720p (1280x720)</option>
+            <option value="800">480p (800x480)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="bitrate">Bitrate (Mbps)</label>
+          <div class="range-container">
+            <input type="range" id="bitrate" min="1" max="50" value="8" oninput="document.getElementById('bitrateValue').innerText = this.value + ' Mbps'">
+            <span id="bitrateValue">8 Mbps</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="maxFps">Max FPS</label>
+          <select id="maxFps">
+            <option value="">No Limit</option>
+            <option value="120">120 FPS</option>
+            <option value="60">60 FPS</option>
+            <option value="30">30 FPS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Features</h2>
+        
+        <label class="toggle-container">
+          <input type="checkbox" id="desktopMode">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label" style="color: #60a5fa; font-weight: bold;">Desktop Mode (Virtual Display)</span>
+        </label>
+        
+        <label class="toggle-container">
+          <input type="checkbox" id="forwardAudio" checked>
+          <span class="toggle-slider"></span>
+          <span class="toggle-label" style="color: #fb923c; font-weight: bold;">Play Audio on PC (Mutes Phone)</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" id="stayAwake">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Stay Awake</span>
+        </label>
+        
+        <label class="toggle-container">
+          <input type="checkbox" id="turnScreenOff">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Turn Screen Off</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" id="showTouches">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Show Touches</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" id="alwaysOnTop">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Always On Top</span>
+        </label>
+        
+        <label class="toggle-container">
+          <input type="checkbox" id="fullscreen">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Start in Fullscreen</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" id="record">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Record Screen (Auto-save)</span>
+        </label>
+      </div>
+      </div>
+      
+      <button id="startBtn" class="primary-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Start Mirroring
+      </button>
+    </main>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
